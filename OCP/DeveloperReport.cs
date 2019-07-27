@@ -18,4 +18,17 @@ namespace OCP
             return WorkingHours * HourlyRate;
         }
     }
+
+    public class JrDeveloper : DeveloperReport
+    {
+
+    }
+
+    public class SrDeveloper : DeveloperReport
+    {
+        public override double CalculateSalary()
+        {
+            return WorkingHours * HourlyRate * 1.2;
+        }
+    }
 }

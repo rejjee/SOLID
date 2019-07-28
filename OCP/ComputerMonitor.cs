@@ -33,7 +33,7 @@ namespace OCP
             return monitors.Where(m => m.Type == type).ToList();
         }
 
-        public List<ComputerMonitor> FilterByType(IEnumerable<ComputerMonitor> monitors, Screen screen)
+        public List<ComputerMonitor> FilterByScreen(IEnumerable<ComputerMonitor> monitors, Screen screen)
         {
             return monitors.Where(m => m.Screen == screen).ToList();
         }

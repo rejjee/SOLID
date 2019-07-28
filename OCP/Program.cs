@@ -40,9 +40,11 @@ namespace OCP
 
             var filter = new MonitorFilter();
 
-            var lcdMonitors = filter.FilterByType(monitors, MonitorType.LCD);
-            Console.WriteLine("All LCD monitors");
-            foreach (var monitor in lcdMonitors)
+            //var filteredMonitors = filter.FilterByType(monitors, MonitorType.LCD);
+            //Console.WriteLine("All LCD monitors");
+            var filteredMonitors = filter.FilterByScreen(monitors, Screen.CurvedScreen);
+            Console.WriteLine("All Curved monitors");
+            foreach (var monitor in filteredMonitors)
             {
                 string string1 = string.Format("Name: {0}, Type: {1}, Screen: {2}", monitor.Name, monitor.Type, monitor.Screen);
                 Console.WriteLine(string1);

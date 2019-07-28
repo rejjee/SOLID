@@ -28,14 +28,56 @@ namespace OCP
 
     public class MonitorFilter
     {
-        public List<ComputerMonitor> FilterByType(IEnumerable<ComputerMonitor> monitors, MonitorType type)
+        //public List<ComputerMonitor> FilterByType(IEnumerable<ComputerMonitor> monitors, MonitorType type)
+        //{
+        //    return monitors.Where(m => m.Type == type).ToList();
+        //}
+
+        //public List<ComputerMonitor> FilterByScreen(IEnumerable<ComputerMonitor> monitors, Screen screen)
+        //{
+        //    return monitors.Where(m => m.Screen == screen).ToList();
+        //}
+
+        public List<ComputerMonitor> Filter(List<ComputerMonitor> monitors, ISpecification specification)
         {
-            return monitors.Where(m => m.Type == type).ToList();
+            return monitors.Where(m => (specification.isSatisfied(m))).ToList();
+        }
+    }
+
+    public interface ISpecification
+    {
+        //ISpec<T>()
+
+        bool isSatisfied(ComputerMonitor monitor);
+    }
+
+    public class MonitorTypeSpecification : ISpecification
+    {
+        MonitorType _type;
+
+        public MonitorTypeSpecification(MonitorType monitorType)
+        {
+            _type = monitorType;
         }
 
-        public List<ComputerMonitor> FilterByScreen(IEnumerable<ComputerMonitor> monitors, Screen screen)
+        public bool isSatisfied(ComputerMonitor item)
         {
-            return monitors.Where(m => m.Screen == screen).ToList();
+            return item.Type == _type;
+        }
+    }
+
+    public class ScreenSpecification : ISpecification
+    {
+        Screen _screen;
+
+        public ScreenSpecification(Screen screen)
+        {
+            _screen = screen;
+        }
+
+        public bool isSatisfied(ComputerMonitor monitor)
+        {
+            return monitor.Screen == _screen;
         }
     }
 

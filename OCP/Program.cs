@@ -11,7 +11,8 @@ namespace OCP
         static void Main(string[] args)
         {
             //CalculateTotalSalaries();
-            FilterByType();
+            //FilterByType();
+            FilterByType_OCP();
         }
 
         static void CalculateTotalSalaries()
@@ -27,8 +28,33 @@ namespace OCP
             Console.WriteLine(string.Format("Sum of all the developer salaries is {0} dollars", calculator.CalculateTotalSalaries()));
         }
 
-        static void FilterByType()
+        //static void FilterByType()
+        //{
+        //    var monitors = new List<ComputerMonitor>
+        //    {
+        //        new ComputerMonitor { Name = "Samsung S345", Screen = Screen.CurvedScreen, Type = MonitorType.OLED },
+        //        new ComputerMonitor { Name = "Philips P532", Screen = Screen.WideScreen, Type = MonitorType.LCD },
+        //        new ComputerMonitor { Name = "LG L888", Screen = Screen.WideScreen, Type = MonitorType.LED },
+        //        new ComputerMonitor { Name = "Samsung S999", Screen = Screen.WideScreen, Type = MonitorType.OLED },
+        //        new ComputerMonitor { Name = "Dell D2J47", Screen = Screen.CurvedScreen, Type = MonitorType.LCD }        
+        //    };
+
+        //    var filter = new MonitorFilter();
+
+        //    //var filteredMonitors = filter.FilterByType(monitors, MonitorType.LCD);
+        //    //Console.WriteLine("All LCD monitors");
+        //    var filteredMonitors = filter.FilterByScreen(monitors, Screen.CurvedScreen);
+        //    Console.WriteLine("All Curved monitors");
+        //    foreach (var monitor in filteredMonitors)
+        //    {
+        //        string string1 = string.Format("Name: {0}, Type: {1}, Screen: {2}", monitor.Name, monitor.Type, monitor.Screen);
+        //        Console.WriteLine(string1);
+        //    }
+        //}
+
+        static void FilterByType_OCP()
         {
+
             var monitors = new List<ComputerMonitor>
             {
                 new ComputerMonitor { Name = "Samsung S345", Screen = Screen.CurvedScreen, Type = MonitorType.OLED },
@@ -39,11 +65,22 @@ namespace OCP
             };
 
             var filter = new MonitorFilter();
+            ISpecification iSpec;
+            List<ComputerMonitor> filteredMonitors;
+            iSpec = new MonitorTypeSpecification(MonitorType.LCD);
+            Console.WriteLine("All LCD monitors");
 
-            //var filteredMonitors = filter.FilterByType(monitors, MonitorType.LCD);
-            //Console.WriteLine("All LCD monitors");
-            var filteredMonitors = filter.FilterByScreen(monitors, Screen.CurvedScreen);
-            Console.WriteLine("All Curved monitors");
+            filteredMonitors = filter.Filter(monitors, iSpec);
+            foreach (var monitor in filteredMonitors)
+            {
+                string string1 = string.Format("Name: {0}, Type: {1}, Screen: {2}", monitor.Name, monitor.Type, monitor.Screen);
+                Console.WriteLine(string1);
+            }
+
+            iSpec = new ScreenSpecification(Screen.CurvedScreen);
+            Console.WriteLine("All Curved Screen monitors");
+
+            filteredMonitors = filter.Filter(monitors, iSpec);
             foreach (var monitor in filteredMonitors)
             {
                 string string1 = string.Format("Name: {0}, Type: {1}, Screen: {2}", monitor.Name, monitor.Type, monitor.Screen);
